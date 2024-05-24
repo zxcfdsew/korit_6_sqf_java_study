@@ -2,12 +2,14 @@ package com.study.java_study.ch06_배열;
 
 import java.util.Scanner;
 
-public class ArrayService {
+public class ArrayService_copy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String[] names = new String[0];
 
         boolean isRun = true;
+
+        NamesManagement namesManagement = new NamesManagement();
 
         while (isRun) {
             System.out.println("[이름 관리 프로그램]");
@@ -23,87 +25,18 @@ public class ArrayService {
 
             switch (selectMenu) {
                 case "1":
-                    System.out.println("[이름 등록]");
-                    String[] newNames = new String[names.length + 1];
-                    for (int i = 0; i < names.length; i++) {
-                        newNames[i] = names[i];
-                    }
-                    names = newNames;
-                    System.out.print("등록 할 이름: ");
-                    names[names.length - 1] = scanner.nextLine();
-                    System.out.println("등록 완료");
+
                     break;
                 case "2":
-                    System.out.println("[이름 수정]");
-                    int nameIndex = -1;
-                    System.out.print("수정할 이름: ");
-                    String oldName = scanner.nextLine();
-                    for(int i = 0; i < names.length; i++) {
-                        if (names[i].equals(oldName)) {
-                            nameIndex = i;
-                            break;
-                        }
-                    }
-                    if(nameIndex == -1) {
-                        System.out.println("해당 이름이 존재하지 않습니다");
-                        break;
-                    }
-                    System.out.print("새로운 이름: ");
-                    String changeName = scanner.nextLine();
-                    names[nameIndex] = changeName;
-                    System.out.println("이름 변경에 성공하였습니다.");
-                    break;
+
                 case "3":
-                    System.out.println("[이름 삭제]");
-                    System.out.print("삭제할 이름: ");
-                    String removeName = scanner.nextLine();
-                    boolean isExist = false;
-                    boolean isRemoved = false;
-                    for (String name : names) {
-                        if (removeName.equals(name)) {
-                            isExist = true;
-                            break;
-                        }
-                    }
-                    if (!isExist) {
-                        System.out.println("해당 이름이 존재하지 않습니다.");
-                        break;
-                    }
-                    String[] removedNames = new String[names.length - 1];
-                    int newArrayindex = 0;
-                    for (int i = 0; i < names.length; i++) {
-                        if(removeName.equals(names[i]) && !isRemoved) {
-                            isRemoved = true;
-                            continue;
-                        }
-                        removedNames[newArrayindex] = names[i];
-                        newArrayindex++;
-                    }
-                    names = removedNames;
-                    System.out.println("삭제되었습니다.");
+
                     break;
                 case "4":
-                    System.out.println("[이름 찾기]");
-                    System.out.print("조회 할 이름: ");
-                    String result = null;
-                    String findName = scanner.nextLine();
-                    for(String name : names) {
-                        if (name.equals(findName)) {
-                            result = name;
-                            break;
-                        }
-                    }
-                    if (result == null) {
-                        System.out.println("해당 이름은 존재하지 않는 이름입니다.");
-                        break;
-                    }
-                    System.out.println("해당 이름은 등록된 이름입니다.");
+
                     break;
                 case "5":
-                    System.out.println("[전체 조회]");
-                    for (int i = 0; i < names.length; i++) {
-                        System.out.println("index[" + i + "]: " + names[i]);
-                    }
+                    namesManagement.printAllNames();
                     break;
                 case "q":
                     isRun = false;
@@ -114,4 +47,69 @@ public class ArrayService {
             System.out.println();
         }
     }
+}
+
+class NamesManagement {
+
+    String[] names = new String[0];
+
+    public void addName(String name) {
+        String[] newString = new String[names.length + 1];
+        for (int i = 0; i < names.length; i++) {
+            newString[i] = names[i];
+        }
+        newString[newString.length - 1] = name;
+        names = newString;
+    }
+
+    public boolean deleteName(String name) {
+        if (find(name) == -1) {
+            return false;
+        }
+        boolean isDeleted = false;
+        int index = 0;
+        String[] newNames = new String[names.length - 1];
+        for (int i = 0; i < names.length; i++) {
+            if (!isDeleted && names[i].equals(name)) {
+                isDeleted = true;
+                continue;
+            }
+            newNames[index] = names[i];
+        }
+        names = newNames;
+        return true;
+    }
+
+    public boolean modifyName(String oldName, String newName) {
+        int changeIndex = find(oldName);
+        if (changeIndex == -1) {
+            return false;
+        }
+        names[changeIndex] = newName;
+        return true;
+    }
+
+    public String printNameIsExist(String name) {
+        int index = find(name);
+        if (index == -1) {
+            return "해당 이름이 존재하지 않습니다.";
+        }
+        return "해당 이름은 등록된 이름입니다.";
+    }
+
+    public void printAllNames() {
+        for (String name : names) {
+            System.out.println(name);
+        }
+    }
+
+    public int find(String name) {
+        for (int i = 0; i < names.length; i++) {
+            if(names[i].equals(name)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }
