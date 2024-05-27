@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class ArrayService_copy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] names = new String[0];
 
         boolean isRun = true;
 
@@ -25,17 +24,44 @@ public class ArrayService_copy {
 
             switch (selectMenu) {
                 case "1":
-
+                    System.out.println("[등록]");
+                    System.out.print("등록할 이름을 입력하세요: ");
+                    String addName = scanner.nextLine();
+                    namesManagement.addName(addName);
+                    System.out.println("추가되었습니다.");
                     break;
                 case "2":
-
+                    System.out.println("[수정]");
+                    System.out.print("수정할 이름을 입력하세요: ");
+                    String oldName = scanner.nextLine();
+                    if (namesManagement.find(oldName) == -1) {
+                        System.out.println("해당 이름이 존재하지 않습니다.");
+                        break;
+                    }
+                    System.out.print("새로운 이름을 입력하세요: ");
+                    String newName = scanner.nextLine();
+                    namesManagement.modifyName(oldName, newName);
+                    System.out.println("수정되었습니다.");
+                    break;
                 case "3":
-
+                    System.out.println("[삭제]");
+                    System.out.print("삭제할 이름을 입력해주세요: ");
+                    String deleteName = scanner.nextLine();
+                    if (namesManagement.find(deleteName) == -1) {
+                        System.out.println("해당 이름이 존재하지 않습니다.");
+                        break;
+                    }
+                    namesManagement.deleteName(deleteName);
+                    System.out.println("삭제되었습니다.");
                     break;
                 case "4":
-
+                    System.out.println("[이름 조회]");
+                    System.out.print("조회할 이름을 입력하세요: ");
+                    String name = scanner.nextLine();
+                    namesManagement.printNameIsExist(name);
                     break;
                 case "5":
+                    System.out.println("[전체 조회]");
                     namesManagement.printAllNames();
                     break;
                 case "q":
@@ -75,6 +101,7 @@ class NamesManagement {
                 continue;
             }
             newNames[index] = names[i];
+            index++;
         }
         names = newNames;
         return true;
@@ -89,12 +116,13 @@ class NamesManagement {
         return true;
     }
 
-    public String printNameIsExist(String name) {
+    public void printNameIsExist(String name) {
         int index = find(name);
         if (index == -1) {
-            return "해당 이름이 존재하지 않습니다.";
+            System.out.println("해당 이름이 존재하지 않습니다.");
+        } else {
+            System.out.println("해당 이름은 등록된 이름입니다.");
         }
-        return "해당 이름은 등록된 이름입니다.";
     }
 
     public void printAllNames() {

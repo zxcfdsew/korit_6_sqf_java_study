@@ -8,7 +8,7 @@ public class FunctionMain03 {
 
         Student student = new Student();
         student.studentCode = 4321;
-        student.name = "이성희";
+        student.name = "이상해";
         student.age = 26;
         student.phone = "00011112222";
         fx.fx02(student);
