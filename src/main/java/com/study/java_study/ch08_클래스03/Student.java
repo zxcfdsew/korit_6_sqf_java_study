@@ -5,9 +5,7 @@ public class Student {
     private String name;
     private int age;
 
-    public Student() {
-
-    }
+    public Student() { }
 
     public Student(int code, String name) {
         this.code = code;

@@ -1,5 +1,7 @@
 package com.study.java_study.ch08_클래스03;
 
+import java.util.Arrays;
+
 public class ColorMain {
     public static void main(String[] args) {
         /*
