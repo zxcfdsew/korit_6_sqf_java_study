@@ -1,7 +1,7 @@
 package com.study.java_study.ch09_클래스04;
 
 public class BookEntity {
-    private int bookCode;
+    private int bookId;
     private String bookName;
     private String author;
     private String publisher;
@@ -10,18 +10,18 @@ public class BookEntity {
     }
 
     public BookEntity(int bookCode, String bookName, String author, String publisher) {
-        this.bookCode = bookCode;
+        this.bookId = bookCode;
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
     }
 
-    public int getBookCode() {
-        return bookCode;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setBookCode(int bookCode) {
-        this.bookCode = bookCode;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getBookName() {
@@ -51,7 +51,7 @@ public class BookEntity {
     @Override
     public String toString() {
         return "BookEntity{" +
-                "bookCode=" + bookCode +
+                "bookCode=" + bookId +
                 ", bookName='" + bookName + '\'' +
                 ", author='" + author + '\'' +
                 ", publisher='" + publisher + '\'' +

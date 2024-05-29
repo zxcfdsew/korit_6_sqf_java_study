@@ -49,8 +49,10 @@ public class BookService {
                 search();
                 break;
             case "3":
+                modify();
                 break;
             case "4":
+                remove();
                 break;
             default:
                 System.out.println("입력 오류!");
@@ -86,7 +88,7 @@ public class BookService {
     }
 
     private void registerBook() {
-        System.out.println("[ 도서 목록 ]");
+        System.out.println("[ 도서 등록 ]");
         int bookId = bookRepository.autoIncrementBookId();
         String bookName = duplicateBookName();
         String author = validateValue("저자");
@@ -115,6 +117,63 @@ public class BookService {
         }
         for(BookEntity book : searchBooks) {
             System.out.println(book.toString());
+        }
+    }
+
+    private void remove() {
+        System.out.println("[ 도서 삭제 ]");
+        search();
+        System.out.println("삭제 할 도서 번호 입력: ");
+        int removeBookId = scanner.nextInt();
+        scanner.nextLine();
+        BookEntity book = bookRepository.findBookByBookId(removeBookId);
+        if(book == null) {
+            System.out.println("해당 도서번호는 존재하지 않습니다.");
+            return;
+        }
+        bookRepository.deleteBookByBookId(removeBookId);
+    }
+
+    private void modify() {
+        System.out.println("[ 도서 수정 ]");
+        search();
+        System.out.print("수정할 도서 번호 입력: ");
+        int modifyBookId = scanner.nextInt();
+        scanner.nextLine();
+
+        BookEntity book = bookRepository.findBookByBookId(modifyBookId);
+        if(book == null) {
+            System.out.println("해당 도서번호는 존재하지 않습니다.");
+            return;
+        }
+        System.out.println("<< 도서 수정 정보 입력 >>");
+        for(int i = 0; i < 3; i++) {
+            String selected = null;
+            switch (i) {
+                case 0:
+                    System.out.print("도서명을 수정하시겠습니까?(y/n)");
+                    selected = scanner.nextLine();
+                    if(selected.equalsIgnoreCase("y")) {  // equalsIgnoreCase : 대소문자를 구별하지 않고 비교, y Y를 똑같이 취급
+                        String bookName = duplicateBookName();
+                        book.setBookName(bookName);
+                    }
+                    break;
+                case 1:
+                    System.out.print("저자명을 수정하시겠습니까?(y/n)");
+                    selected = scanner.nextLine();
+                    if(selected.equalsIgnoreCase("y")) {
+                        String author = validateValue("저자");
+                        book.setAuthor(author);
+                    }
+                    break;
+                case 2:
+                    System.out.print("출판사명을 수정하시겠습니까?(y/n)");
+                    selected = scanner.nextLine();
+                    if(selected.equalsIgnoreCase("y")) {
+                        String publisher = validateValue("출판사");
+                        book.setPublisher(publisher);
+                    }
+            }
         }
     }
 }

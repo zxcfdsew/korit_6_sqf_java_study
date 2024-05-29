@@ -41,7 +41,7 @@ public class BookRepository {
 
         // 선형탐색
         for(BookEntity book : books) {
-            if(book.getBookCode() == bookId) {
+            if(book.getBookId() == bookId) {
                 findBook = book;
                 break;
             }
@@ -137,5 +137,31 @@ public class BookRepository {
                 break;
         }
         return searchBooks;
+    }
+
+    private int indexOfBookId(int bookId) {
+        int findIndex = -1;
+        for(int i = 0; i < books.length; i++) {
+            if(books[i].getBookId() == bookId) {
+                findIndex = i;
+                break;
+            }
+        }
+        return findIndex;
+    }
+
+    public void deleteBookByBookId(int bookId) {
+        int findIndex = indexOfBookId(bookId);
+        BookEntity[] newBooks = new BookEntity[books.length - 1];
+
+        for(int i = 0; i < newBooks.length; i++) {
+            if(i < findIndex) {
+                newBooks[i] = books[i];
+                continue;
+            }
+            newBooks[i] = books[i + 1];
+        }
+
+        books = newBooks;
     }
 }
