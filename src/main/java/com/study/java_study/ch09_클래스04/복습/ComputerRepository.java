@@ -47,6 +47,14 @@ public class ComputerRepository {
         return null;
     }
 
+    public String[] computerNames() {
+        String[] names = new String[computers.length];
+        for (int i = 0; i < computers.length; i++) {
+            names[i] = computers[i].getName();
+        }
+        return names;
+    }
+
     public ComputerEntity[] searchComputers(String option, String text) {
         ComputerEntity[] tempComputers = new ComputerEntity[computers.length];
         int index = 0;
@@ -103,6 +111,9 @@ public class ComputerRepository {
             if (tempComputers[i] != null) {
                 len++;
             }
+        }
+        if (len == 0) {
+            return null;
         }
         ComputerEntity[] newComputers = new ComputerEntity[len];
         for (int i = 0; i < len; i++) {

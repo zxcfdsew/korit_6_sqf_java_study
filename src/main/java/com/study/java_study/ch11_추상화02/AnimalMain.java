@@ -10,8 +10,6 @@ public class AnimalMain {
 
         for(Animal animal : animals) {
             animal.move();
-
-              
         }
     }
 }
