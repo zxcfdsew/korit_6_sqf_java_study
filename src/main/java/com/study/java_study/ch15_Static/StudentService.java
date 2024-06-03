@@ -13,7 +13,7 @@ public class StudentService {
     }
 
     public void addStudent() {
-        StudentRepository.getInstance().add("김준일");
+        StudentRepository.getInstance().add("홍길동");
     }
 
     public void getStudentData() {

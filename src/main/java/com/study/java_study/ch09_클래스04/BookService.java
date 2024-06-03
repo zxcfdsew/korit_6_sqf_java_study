@@ -13,12 +13,25 @@ public class BookService {
     }
 
     private String selectMenu() {
-        String menus = "1234q";
+//        String menus = "1234q";
+        String[] menus = {"1", "2", "3", "4", "q"};
         String selectedMenu = null;
+
         while (true) {
+            boolean isMenu = false;
             System.out.print("메뉴 선택: ");
             selectedMenu = scanner.nextLine();
-            if(menus.contains(selectedMenu)) {
+//            if(menus.contains(selectedMenu)) {
+//                break;
+//            }
+//            Arrays.binarySearch() 사용
+            for(String menu : menus) {
+                if(selectedMenu.equals(menu)) {
+                    isMenu = true;
+                    break;
+                }
+            }
+            if (isMenu) {
                 break;
             }
             System.out.println("잘못된 입력입니다. 다시 입력하세요.");
@@ -93,7 +106,6 @@ public class BookService {
         String bookName = duplicateBookName();
         String author = validateValue("저자");
         String publisher = validateValue("출판사");
-
         BookEntity book = new BookEntity(bookId, bookName, author, publisher);
         bookRepository.saveBook(book);
         System.out.println("새로운 도서를 등록하였습니다.");
