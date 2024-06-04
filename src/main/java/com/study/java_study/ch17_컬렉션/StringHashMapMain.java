@@ -1,6 +1,5 @@
 package com.study.java_study.ch17_컬렉션;
 
-import java.lang.annotation.Inherited;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
