@@ -11,7 +11,5 @@ public class StudentMain {
         Student stu = Student.builder()
                 .studentCode(20202020)
                 .build();
-
-
     }
 }

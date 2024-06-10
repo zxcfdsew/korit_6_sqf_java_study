@@ -21,6 +21,10 @@ public class Main {
                 System.out.println("test");
             }
         });
+
+        ASDF asdf = new ASDF();
+        asdf.test2();
+        ASDF.test();
     }
 
     public static void test(B b) {
